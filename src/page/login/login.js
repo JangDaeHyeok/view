@@ -5,18 +5,22 @@ import {useHistory} from "react-router-dom";
 import Title from "../../component/title/index";
 import Button from "../../component/button/index";
 import * as Common from "../../static/js/common";
+import UserContext from "../../component/userContext";
 
 
 function Login() {
     const history = useHistory();
     const [loginView, setLoginView] = useState(''); // 로그인 정보 저장
+    const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
 
-    // 디폴트로 무조건 세션값 초기화
+    
+    // 세션초기화
     useEffect(() => {
-        window.localStorage.setItem('session', '');
+        setSession('');
         window.localStorage.setItem('userId', '');
         window.localStorage.setItem('userNm', '');
-    }, [1]);
+    },[1]);
+
 
     // 로그인
     const login = () => {
@@ -36,7 +40,7 @@ function Login() {
             if(Response.data === 'fail') alert('로그인에 실패했습니다.');
             else {
                 // 로그인 -> 세션 저장
-                window.localStorage.setItem('session', Response.data.author)
+                setSession(Response.data.author);
                 goBoardList();
             }
         }).catch((error) => {

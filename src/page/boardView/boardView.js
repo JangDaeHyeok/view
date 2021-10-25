@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import {useContext} from "react";
 
 import Title from "../../component/title/index";
 import Button from "../../component/button/index";
 import * as Common from "../../static/js/common";
 import UserInfo from "../../component/userInfo";
+import UserContext from "../../component/userContext";
 
 function BoardView(props) {
     const history = useHistory(); // 컴포넌트간 이동
     const [view, setView] = useState(''); // 상세 페이지 내용 저장
-    const sessionChk = window.localStorage.getItem('session'); // 현재 세션 정보 저장
     const sessionUser = window.localStorage.getItem('userId'); // 현재 userId 정보 저장
-    
+    const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
+
     // 게시물 상세 정보 가져오기
     useEffect(()=> {
         // axios 섹션 헤더 전달
-        axios.defaults.headers.common['X-AUTH-TOKEN'] = sessionChk;
+        axios.defaults.headers.common['X-AUTH-TOKEN'] = setSession();
 
         axios({
             method: 'post',

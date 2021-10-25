@@ -8,6 +8,7 @@ import Paging from "../../component/paging/index";
 import Button from "../../component/button/index";
 import * as Common from "../../static/js/common";
 import Search from "../../component/search";
+import UserContext from "../../component/userContext";
 
 function BoardList() {
     const history = useHistory(); // 컴포넌트간 이동
@@ -15,13 +16,12 @@ function BoardList() {
     const [paging, setPaging] = useState(1); // 현재 페이지 숫자
     const size = 6; // 한 페이지에 노출시킬 게시물 개수
     let num = source.total - ((paging - 1) * size) // 게시물 번호
-    const sessionChk = window.localStorage.getItem('session'); // 현재 세션 정보 저장
-    let sessionFl = true;
+    const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
 
     // 데이터 전송 / 전달
     useEffect(() => {
         // axios 섹션 헤더 전달
-        axios.defaults.headers.common['X-AUTH-TOKEN'] = sessionChk;
+        axios.defaults.headers.common['X-AUTH-TOKEN'] = setSession();
 
         axios({
             method: 'post',
@@ -41,10 +41,6 @@ function BoardList() {
                 boardType: 'free'
             });
         }).catch((error) => {
-            // 세션 end -> 로그인으로 이동
-            const { data } = error.response;
-            if(data.message === 'logout') sessionFl = false;
-            else console.log(data);
         });
     },[paging]);
 
