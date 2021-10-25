@@ -37,10 +37,7 @@ function Join() {
                 alert('사용할 수 있는 아이디입니다.');
             }
         }).catch((error) => {
-            if (error.response) {
-                const { data } = error.response;
-                console.error("data : ", data);
-            }
+            console.log(error);
         });
     }
 

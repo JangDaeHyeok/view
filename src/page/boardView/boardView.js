@@ -26,7 +26,7 @@ function BoardView(props) {
             headers: {'Content-Type': 'application/json'},
             data: {
                 viewType:'detailView', // 목록: list, 상세: detailView
-                boardIdx:props.location.state.boardIdx
+                boardIdx:props.location.state ? props.location.state.boardIdx : ''
             },
         }).then(Response => {
             setView({
@@ -38,10 +38,7 @@ function BoardView(props) {
                 modDt:Response.data.one.modDt
             })
         }).catch((error) => {
-            // 세션 end -> 로그인으로 이동
-            const { data } = error.response;
-            if(data.message === 'logout') history.push('/login');
-            else console.log(data);
+            console.log(error);
         })
     }, [1]);
 
@@ -74,10 +71,7 @@ function BoardView(props) {
             }).then(Response => {
                 history.push('/board/list');
             }).catch((error) => {
-                // 세션 end -> 로그인으로 이동
-                const { data } = error.response;
-                if(data.message === 'logout') history.push('/login');
-                else console.log(data);
+                console.log(error);
             })
         }
     }

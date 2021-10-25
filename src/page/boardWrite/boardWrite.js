@@ -12,8 +12,8 @@ import UserContext from "../../component/userContext";
 function BoardWrite(props) {
     const history = useHistory(); // 컴포넌트간 이동
     const [view, setView] = useState(''); // case: 수정 -> 해당 게시물 저장
-    const writeType = props.location.state.type;// 등록 or 수정 분기 저장 (writeType:write / writeType:mod)
-    const modBoardIdx = props.location.state.boardIdx; // case: 수정 -> 게시물 idx 저장
+    const writeType = props.location.state ? props.location.state.type : '';// 등록 or 수정 분기 저장 (writeType:write / writeType:mod)
+    const modBoardIdx = props.location.state ? props.location.state.boardIdx : ''; // case: 수정 -> 게시물 idx 저장
     const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
     const sessionUserId = window.localStorage.getItem('userId'); // 현재 userId 정보 저장
     const sessionUserNm = window.localStorage.getItem('userNm'); // 현재 userNm 정보 저장
@@ -38,10 +38,7 @@ function BoardWrite(props) {
                     contents:Response.data.one.contents
                 });
             }).catch((error) => {
-                // 세션 end -> 로그인으로 이동
-                const { data } = error.response;
-                if(data.message === 'logout') history.push('/login');
-                else console.log(data);
+                console.log(error);
             })
         }
     }, [1]);
@@ -56,24 +53,35 @@ function BoardWrite(props) {
         // 등록/수정 데이터 분기처리 및 전송
         axios({
             method: writeType === 'write' ? 'post' : 'patch',
-            url: writeType === 'write' ? '/board/save/' : '/board/update/',
+            url: '/board/file/save/',
             headers: {'Content-Type': 'application/json'},
             data: {
-                boardIdx: modBoardIdx ?? '',
-                title: view.title,
-                userId:sessionUserId,
-                contents:view.contents,
-                boardType: 'free'
+                files: view.files
             },
         }).then(Response => {
-            if(Response.data) goBoardList();
-            else alert('에러 발생!!');
+            console.log(Response)
+            /*axios({
+                method: writeType === 'write' ? 'post' : 'patch',
+                url: writeType === 'write' ? '/board/save/' : '/board/update/',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    boardIdx: modBoardIdx ?? '',
+                    title: view.title,
+                    userId:sessionUserId,
+                    contents:view.contents,
+                    boardType: 'free'
+                },
+            }).then(Response => {
+                /!*if(Response.data) goBoardList();
+                else alert('에러 발생!!');*!/
+            }).catch((error) => {
+                console.log(error)
+            });*/
         }).catch((error) => {
-            // 세션 end -> 로그인으로 이동
-            const { data } = error.response;
-            if(data.message === 'logout') history.push('/login');
-            else console.log(data);
-        })
+            console.log(error)
+        });
+
+
     }
 
     // 목록으로 이동
@@ -105,6 +113,12 @@ function BoardWrite(props) {
                     <div className='tit'>내용</div>
                     <div className='desc'>
                         <textarea className='form-basic' rows='8' title='내용 입력' placeholder='내용을 입력하세요.' defaultValue={view.contents} onChange={e => setView(Object.assign(view, {contents:e.target.value}))} />
+                    </div>
+                </div>
+                <div className='comp-basic-row'>
+                    <div className='tit'>첨부파일</div>
+                    <div className='desc'>
+                        <input type='file' className='form-basic' title='파일첨부' defaultValue={view.files} onChange={e => setView(Object.assign(view, {files:e.target.value}))} />
                     </div>
                 </div>
             </section>

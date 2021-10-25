@@ -17,13 +17,14 @@ function UserInfo() {
             headers: {'Content-Type': 'application/json', 'X-AUTH-TOKEN': setSession()},
         }).then(Response => {
             if(Response.data === 'logout') {
+                alert('세션이 만료되었습니다.');
                 history.push('/login');
                 return false;
-                alert('세션이 만료되었습니다.');
             } else {
                 window.localStorage.setItem('userId', Response.data.userId);
                 window.localStorage.setItem('userNm', Response.data.userName);
             }
+
         }).catch((error) => {
             history.push('/login');
         });
