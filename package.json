@@ -43,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.50.198:6119"
+  "proxy": "http://api.test.com"
 }
