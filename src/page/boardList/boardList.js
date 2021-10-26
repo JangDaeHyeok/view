@@ -8,7 +8,7 @@ import Paging from "../../component/paging/index";
 import Button from "../../component/button/index";
 import * as Common from "../../static/js/common";
 import Search from "../../component/search";
-import UserContext from "../../component/userContext";
+import UserSession from "../../component/userSession";
 
 function BoardList() {
     const history = useHistory(); // 컴포넌트간 이동
@@ -16,7 +16,7 @@ function BoardList() {
     const [paging, setPaging] = useState(1); // 현재 페이지 숫자
     const size = 6; // 한 페이지에 노출시킬 게시물 개수
     let num = source.total - ((paging - 1) * size) // 게시물 번호
-    const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
+    const {setSession} = useContext(UserSession); // 세션 컨텍스트 사용
 
     // 데이터 전송 / 전달
     useEffect(() => {
@@ -66,7 +66,7 @@ function BoardList() {
             <Title titleText='일반게시판 목록'/>
 
             {/* 검색조건 */}
-            <Search selOption={{'all': '전체', 'title': '제목', 'writer': '작성자'}} />
+            <Search selOption={{'title': '제목', 'writer': '작성자'}} />
 
             {/* 게시판 목록 */}
             <section className='comp-board-list-wrap'>

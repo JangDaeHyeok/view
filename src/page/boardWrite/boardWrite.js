@@ -6,7 +6,7 @@ import Title from "../../component/title/index";
 import Button from "../../component/button/index";
 import * as Common from "../../static/js/common";
 import UserInfo from "../../component/userInfo";
-import UserContext from "../../component/userContext";
+import UserSession from "../../component/userSession";
 
 
 function BoardWrite(props) {
@@ -14,7 +14,7 @@ function BoardWrite(props) {
     const [view, setView] = useState(''); // case: 수정 -> 해당 게시물 저장
     const writeType = props.location.state ? props.location.state.type : '';// 등록 or 수정 분기 저장 (writeType:write / writeType:mod)
     const modBoardIdx = props.location.state ? props.location.state.boardIdx : ''; // case: 수정 -> 게시물 idx 저장
-    const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
+    const {setSession} = useContext(UserSession); // 세션 컨텍스트 사용
     const sessionUserId = window.localStorage.getItem('userId'); // 현재 userId 정보 저장
     const sessionUserNm = window.localStorage.getItem('userNm'); // 현재 userNm 정보 저장
 

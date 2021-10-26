@@ -1,8 +1,8 @@
 import React, {createContext} from "react";
 
-const UserContext = createContext({
+const UserSession = createContext({
     session: '',
     setSession: () => {}
 });
 
-export default UserContext;
+export default UserSession;

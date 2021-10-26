@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import Login from '../../page/login/login';
@@ -6,8 +6,7 @@ import Join from '../../page/join/join';
 import BoardList from '../../page/boardList/boardList';
 import BoardWrite from '../../page/boardWrite/boardWrite';
 import BoardView from '../../page/boardView/boardView';
-import UserContext from "../userContext";
-import Test from "../../test";
+import UserContext from "../userSession";
 
 /* router: url과 component 세팅 */
 function Routers() {
@@ -28,7 +27,6 @@ function Routers() {
                         <Route path='/board/list' exact component={BoardList} />
                         <Route path='/board/write' exact  component={BoardWrite} />
                         <Route path='/board/view' exact  component={BoardView} />
-                        <Route path='/test' exact  component={Test} />
                     </Switch>
                 </BrowserRouter>
             </UserContext.Provider>

@@ -5,16 +5,16 @@ import {useHistory} from "react-router-dom";
 import Title from "../../component/title/index";
 import Button from "../../component/button/index";
 import * as Common from "../../static/js/common";
-import UserContext from "../../component/userContext";
+import UserSession from "../../component/userSession";
 
 
 function Login() {
     const history = useHistory();
     const [loginView, setLoginView] = useState(''); // 로그인 정보 저장
-    const {setSession} = useContext(UserContext); // 세션 컨텍스트 사용
+    const {setSession} = useContext(UserSession); // 세션 컨텍스트 사용
 
     
-    // 세션초기화
+    // 초기 -> 세션값 초기화
     useEffect(() => {
         setSession('');
         window.localStorage.setItem('userId', '');

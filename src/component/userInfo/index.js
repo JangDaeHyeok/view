@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import axios from "axios";
 import Button from "../button";
-import UserContext from "../userContext";
+import UserContext from "../userSession";
 import {useHistory} from "react-router-dom";
 import {useContext} from "react";
 
 function UserInfo() {
     const history = useHistory();
-    const {setSession} = useContext(UserContext);
+    const {setSession} = useContext(UserContext); // 유저 컨텍스트 사용
 
-    /* 초기 - 세션값 체크 */
+    // 초기 -> 세션값 체크
     useEffect(() => {
         axios({
             method: 'post',
@@ -24,7 +24,6 @@ function UserInfo() {
                 window.localStorage.setItem('userId', Response.data.userId);
                 window.localStorage.setItem('userNm', Response.data.userName);
             }
-
         }).catch((error) => {
             history.push('/login');
         });
