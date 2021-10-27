@@ -25,6 +25,7 @@ podTemplate(label: 'builder',
                sh 'npm cache clear --force'
                sh 'rm -rf node_modules/'
 
+               sh 'npm install'
                sh 'npm install -g create-react-app'
                sh 'npm rebuild node-sass'
                sh 'npm run build'
