@@ -23,6 +23,7 @@ podTemplate(label: 'builder',
               // build node
               sh 'npm cache clean --force'
               sh 'rm -rf node_modules package-lock.json'
+              sh 'npm rebuild node-sass'
               sh 'npm install'
               sh 'npm run build'
             }
