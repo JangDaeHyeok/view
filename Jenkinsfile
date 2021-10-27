@@ -22,13 +22,7 @@ podTemplate(label: 'builder',
             container('node') {
               // build node
               sh 'npm install'
-              sh 'npm install -g create-react-app'
-              sh 'npm install axios'
-              sh 'npm install react-dom'
-              sh 'npm install react-router-dom'
-              sh 'npm install react-scripts'
-              sh 'npm install react-session'
-              sh 'npm audit fix'
+              sh 'ls'
               sh 'npm run build'
             }
         }
