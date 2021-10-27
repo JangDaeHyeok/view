@@ -7,7 +7,7 @@ def DATE = new Date();
   
 podTemplate(label: 'builder',
             containers: [
-                containerTemplate(name: 'node', image: 'node:17', command: 'cat', ttyEnabled: true),
+                containerTemplate(name: 'node', image: 'node:14', command: 'cat', ttyEnabled: true),
                 containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
                 containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.15.3', command: 'cat', ttyEnabled: true)
             ],
@@ -21,6 +21,7 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('node') {
                 // build node
+                sh 'npm install'
                 sh 'npm run build'
             }
         }
