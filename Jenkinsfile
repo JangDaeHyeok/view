@@ -22,7 +22,7 @@ podTemplate(label: 'builder',
             container('node') {
               // build node
               sh 'npm install'
-              sh 'npx create-react-app react-app-k8'
+              sh 'npm install -g create-react-app'
               sh 'npm install axios'
               sh 'npm install react-dom'
               sh 'npm install react-router-dom'
