@@ -31,9 +31,6 @@ podTemplate(label: 'builder',
               sh 'npm install -g create-react-app'
               sh 'npm run build'
               */
-              sh 'sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024'
-              sh 'sudo /sbin/mkswap /var/swap.1'
-              sh 'sudo /sbin/swapon /var/swap.1'
               sh 'npm install -g create-react-app'
               sh 'npm update && npm start'
             }
