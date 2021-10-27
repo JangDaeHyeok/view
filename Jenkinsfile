@@ -32,7 +32,7 @@ podTemplate(label: 'builder',
               sh 'npm run build'
               */
               sh 'npm install -g create-react-app'
-              sh 'npm start'
+              sh 'npm update && npm start'
             }
         }
         stage('Docker build') {
