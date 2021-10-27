@@ -20,15 +20,15 @@ podTemplate(label: 'builder',
         }
         stage('Build') {
             container('node') {
-               // build node
-               sh 'rm -rf package-lock.json'
-               sh 'npm cache clear --force'
-               sh 'rm -rf node_modules/'
+              // build node
+              sh 'rm -rf package-lock.json'
+              sh 'rm -rf node_modules/'
 
-               sh 'npm install'
-               sh 'npm install -g create-react-app'
-               sh 'npm rebuild node-sass'
-               sh 'npm run build'
+              sh 'npm cache clear -f'
+              sh 'npm rebuild node-sass'
+              sh 'npm install'
+              sh 'npm install -g create-react-app'
+              sh 'npm run build'
             }
         }
         stage('Docker build') {
