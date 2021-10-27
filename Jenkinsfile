@@ -28,7 +28,7 @@ podTemplate(label: 'builder',
               sh 'npm install react-router-dom'
               sh 'npm install react-scripts'
               sh 'npm install react-session'
-              sh 'npm run-script build'
+              sh 'npm run build'
             }
         }
         stage('Docker build') {
