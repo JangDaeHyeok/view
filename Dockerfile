@@ -1,6 +1,5 @@
-FROM sktellecom/centos7:jdk-11
-VOLUME /tmp
-EXPOSE 8090
-ADD ./build/libs/gateway-0.0.1-SNAPSHOT.jar app.jar
-ENV JAVA_OPTS=""
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM nginx:latest
+VOLUME /raor_dev_volume
+RUN rm -rf /etc/nginx/conf.d/default.conf
+ADD ./nginx/default.conf /etc/nginx/conf.d/default.conf
+ADD ./build /usr/share/nginx/html
