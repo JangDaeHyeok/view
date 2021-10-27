@@ -21,6 +21,7 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('node') {
               // build node
+              /*
               sh 'rm -rf package-lock.json'
               sh 'rm -rf node_modules/'
 
@@ -29,6 +30,8 @@ podTemplate(label: 'builder',
               sh 'npm install'
               sh 'npm install -g create-react-app'
               sh 'npm run build'
+              */
+              sh 'npm start'
             }
         }
         stage('Docker build') {
