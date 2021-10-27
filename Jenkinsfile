@@ -31,6 +31,7 @@ podTemplate(label: 'builder',
               sh 'npm install -g create-react-app'
               sh 'npm run build'
               */
+              sh 'npm install -g create-react-app'
               sh 'npm start'
             }
         }
