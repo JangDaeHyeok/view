@@ -1,20 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Button from "../button";
 
 function Search(props) {
     const option = props.selOption;
 
-   /* for (const key in option) {
-        console.log(key);
-    }
-*/
+
+    useEffect(() => {
+        for (const key in option) {
+        }
+    },[1])
+
     return (
         <section className='comp-search'>
             <div className='box'>
                 <div className='item sel'>
                     <select className='form-basic'>
                         {
-
+                          /*  selValue && selValue.map((item, index) => {
+                                <option value={item} key={index}></option>
+                            })*/
                         }
                     </select>
                 </div>
