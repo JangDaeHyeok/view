@@ -21,6 +21,8 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('node') {
               // build node
+              sh 'rm -rf package-lock.json'
+              
               sh 'npm install'
               sh 'npm install -g create-react-app'
               sh 'npm install axios'
