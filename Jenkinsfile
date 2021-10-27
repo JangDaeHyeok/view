@@ -23,6 +23,11 @@ podTemplate(label: 'builder',
               // build node
               sh 'npm install'
               sh 'npx create-react-app react-app-k8'
+              sh 'npm install axios'
+              sh 'npm install react-dom'
+              sh 'npm install react-router-dom'
+              sh 'npm install react-scripts'
+              sh 'npm install react-session'
               sh 'npm run-script build'
             }
         }
