@@ -1,6 +1,6 @@
-FROM node:17
-CMD ["mkdir", "node_server"]
+FROM sktellecom/centos7:jdk-11
 VOLUME /tmp
-EXPOSE 3000
-ADD .* .
-ENTRYPOINT ["npm","install"]
+EXPOSE 8090
+ADD ./build/libs/gateway-0.0.1-SNAPSHOT.jar app.jar
+ENV JAVA_OPTS=""
+ENTRYPOINT ["java","-jar","/app.jar"]

@@ -1,21 +1,40 @@
 /* pipeline ���� ���� */
 def DOCKER_IMAGE_NAME = "sktellecom/ms-test"   // �����ϴ� Docker image �̸�
-def DOCKER_IMAGE_TAGS = "view-api"  // �����ϴ� Docker image �±�
+def DOCKER_IMAGE_TAGS = "gateway-api"  // �����ϴ� Docker image �±�
 def NAMESPACE = "ms-test"
 def VERSION = "${env.BUILD_NUMBER}"
 def DATE = new Date();
   
 podTemplate(label: 'builder',
             containers: [
+                containerTemplate(name: 'gradle', image: 'gradle:7.1-jdk11', command: 'cat', ttyEnabled: true),
                 containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
                 containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.15.3', command: 'cat', ttyEnabled: true)
             ],
             volumes: [
-                hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
+                hostPathVolume(mountPath: '/home/gradle/.gradle', hostPath: '/home/admin/k8s/jenkins/.gradle'),
+                hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
+                //hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker')
             ]) {
     node('builder') {
         stage('Checkout') {
              checkout scm   // github�κ��� �ҽ� �ٿ�
+        }
+        stage('Build') {
+            container('gradle') {
+            	/*
+            		jvm memory ���� & gradle daemon �̻�� ����
+            		gradle 3.0 ���� CI ȯ�濡���� daemon�� ������� �ʵ��� �����ϰ� ����
+            	*/
+            	sh "echo -e '\norg.gradle.jvmargs=-Xmx1543m\norg.gradle.daemon=false' >> ~/.gradle/gradle.properties"
+                /* 
+                	��Ŀ �̹����� Ȱ���Ͽ� gradle ���带 �����Ͽ� ./build/libs�� jar���� ����
+                	���� �̻������ ����
+                	build ���� �Ŀ��� sonarqube�� Ȱ���Ͽ� �ҽ������м��� ����
+                */
+                // sh "gradle -x test build sonarqube --no-daemon"
+                sh "gradle -x test build --no-daemon"
+            }
         }
         stage('Docker build') {
             container('docker') {
