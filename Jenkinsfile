@@ -21,7 +21,7 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('node') {
                 // build node
-                sh 'npm install'
+                sh 'npm install -g'
                 sh 'npm install -g create-react-app'
                 sh 'npm run build'
             }
