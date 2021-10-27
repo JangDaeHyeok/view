@@ -22,7 +22,8 @@ podTemplate(label: 'builder',
             container('node') {
               // build node
               sh 'npm install'
-              sh 'npm run build'
+              sh 'npx create-react-app react-app-k8'
+              sh 'npm run-script build'
             }
         }
         stage('Docker build') {
