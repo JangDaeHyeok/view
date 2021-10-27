@@ -33,7 +33,7 @@ podTemplate(label: 'builder',
               */
               sh 'npm install -g create-react-app'
               sh 'npm install cross-spawn'
-              sh 'npm update && npm start'
+              sh 'npm update && npm run build'
             }
         }
         stage('Docker build') {
