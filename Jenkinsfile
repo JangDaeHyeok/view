@@ -21,7 +21,7 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('node') {
                 // build node
-                sh 'npm config set proxy http://10.107.154.33:8092'
+                sh 'npm config set proxy http://localhost:3000'
                 sh 'npm install'
                 sh 'npm run build'
             }
