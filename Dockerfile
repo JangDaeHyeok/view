@@ -1,2 +1,2 @@
-FROM sktellecom/ms-test:view-api
-CMD ["npm", "start"]
+FROM sktellecom/ms-test:nginx
+ADD ./build /usr/share/nginx/html
