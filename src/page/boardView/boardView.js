@@ -35,12 +35,14 @@ function BoardView(props) {
                 userNm:Response.data.one.userNm,
                 contents:Response.data.one.contents,
                 regDt:Response.data.one.regDt,
-                modDt:Response.data.one.modDt
-            })
+                modDt:Response.data.one.modDt,
+                files:Response.data.fileList
+            });
         }).catch((error) => {
             console.log(error);
         })
     }, [1]);
+
 
     // 목록으로 이동
     const goBoardList = () => {
@@ -97,6 +99,22 @@ function BoardView(props) {
                 <div className='comp-basic-row'>
                     <div className='tit'>내용</div>
                     <div className='desc'>{view.contents}</div>
+                </div>
+                <div className={view.files ? 'comp-basic-row' : 'comp-basic-row hide'}>
+                    <div className='tit'>이미지</div>
+                    <div className='desc'>
+                        <div className='img-box'>
+                            {
+                                view.files && view.files.map((item, index) => {
+                                    return (
+                                        <div key={index} className='img'>
+                                            <img src={'/board/file/download/'+item.fileNm} alt=''/>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
                 <div className='comp-basic-row'>
                     <div className='tit'>등록일</div>

@@ -51,37 +51,46 @@ function BoardWrite(props) {
         if(!view.contents) return Common.validate('내용을 입력해 주세요.');
 
         // 등록/수정 데이터 분기처리 및 전송
-        axios({
-            method: writeType === 'write' ? 'post' : 'patch',
-            url: '/board/file/save/',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                files: view.files
-            },
-        }).then(Response => {
-            console.log(Response)
-            /*axios({
+        const saveData = (idx) => {
+            axios({
                 method: writeType === 'write' ? 'post' : 'patch',
                 url: writeType === 'write' ? '/board/save/' : '/board/update/',
                 headers: {'Content-Type': 'application/json'},
                 data: {
-                    boardIdx: modBoardIdx ?? '',
+                    boardIdx: idx ?? '',
                     title: view.title,
                     userId:sessionUserId,
                     contents:view.contents,
                     boardType: 'free'
                 },
-            }).then(Response => {
-                /!*if(Response.data) goBoardList();
-                else alert('에러 발생!!');*!/
+            }).then(response => {
+                if(response.data) goBoardList();
+                else alert('에러 발생!!');
             }).catch((error) => {
                 console.log(error)
-            });*/
-        }).catch((error) => {
-            console.log(error)
-        });
+            });
+        }
 
+        // 파일전송 분기처리 및 전송
+        if(view.files) {
+            const formData = new FormData();
+            for(let i = 0; i < view.files.length; i++) formData.append('files', view.files[i]);
 
+            axios({
+                method: writeType === 'write' ? 'post' : 'patch',
+                url: '/board/file/upload/',
+                headers: {'Content-Type': 'multipart/form-data'},
+                data: formData,
+            }).then(response => {
+                if(response.data.result === 'success') {
+                    saveData(response.data.boardIdx);
+                } else alert('에러발생');
+            }).catch((error) => {
+                console.log(error)
+            });
+        } else {
+            saveData();
+        }
     }
 
     // 목록으로 이동
@@ -116,9 +125,9 @@ function BoardWrite(props) {
                     </div>
                 </div>
                 <div className='comp-basic-row'>
-                    <div className='tit'>첨부파일</div>
+                    <div className='tit'>이미지</div>
                     <div className='desc'>
-                        <input type='file' className='form-basic' title='파일첨부' defaultValue={view.files} onChange={e => setView(Object.assign(view, {files:e.target.value}))} />
+                        <input type='file' className='form-basic' title='이미지 등록' defaultValue={view.files} onChange={e => setView(Object.assign(view, {files:e.target.files}))} multiple accept="image/png, image/gif, image/jpeg, image/jpg"/>
                     </div>
                 </div>
             </section>

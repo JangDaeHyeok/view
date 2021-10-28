@@ -52,7 +52,6 @@ function Join() {
         if(!joinView.userPw) return Common.validate('비밀번호를 입력해 주세요.');
         if(!joinView.userPw || !joinView.userPwOk) return Common.validate('비밀번호를 입력해 주세요.');
         if(joinView.userPw !== joinView.userPwOk) return Common.validate('입력한 비밀번호가 다릅니다.');
-        if(!joinView.nickname) return Common.validate('닉네임을 입력해 주세요.');
 
         axios({
             method: 'post',
@@ -62,7 +61,6 @@ function Join() {
                 userName: joinView.userName,
                 userId: joinView.userId,
                 userPw: joinView.userPw,
-                nickname: joinView.nickname,
                 userPwOk: joinView.userPwOk,
             },
         }).then(Response => {
@@ -115,13 +113,7 @@ function Join() {
                 <div className='comp-basic-row'>
                     <div className='tit'>비밀번호 재입력</div>
                     <div className='desc'>
-                        <input type="password" className='form-basic' title='비밀번호 입력' placeholder='비밀번호를 다시 입력하세요.' autoComplete='off' onChange={ e => setJoin(e, 'userPwOk')} />
-                    </div>
-                </div>
-                <div className='comp-basic-row'>
-                    <div className='tit'>닉네임</div>
-                    <div className='desc'>
-                        <input type="text" className='form-basic' title='닉네임 입력' placeholder='닉네임을 입력하세요.' autoComplete='off' onChange={ e => setJoin(e, 'nickname')} onKeyPress={e => enter(e)} />
+                        <input type="password" className='form-basic' title='비밀번호 입력' placeholder='비밀번호를 다시 입력하세요.' autoComplete='off' onChange={ e => setJoin(e, 'userPwOk')} onKeyPress={e => enter(e)} />
                     </div>
                 </div>
             </section>
