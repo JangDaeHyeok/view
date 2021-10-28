@@ -23,5 +23,3 @@ spec:
               value: 'DATE_STRING'
       imagePullSecrets:
         - name: ms-secret
-      nodeSelector:
-        key: k8s-node2
