@@ -12,8 +12,7 @@ podTemplate(label: 'builder',
                 containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.15.3', command: 'cat', ttyEnabled: true)
             ],
             volumes: [
-                hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-                hostPathVolume(mountPath: '/tmp/default.conf', hostPath: '/nginx/default.conf')
+                hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
             ]) {
     node('builder') {
         stage('Checkout') {
