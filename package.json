@@ -43,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://api.test.com"
+  "proxy": "10.107.154.35:3000"
 }
