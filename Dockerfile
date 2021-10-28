@@ -1,9 +1,8 @@
 FROM sktellecom/centos7:node
-RUN mkdir /tmp/react
-VOLUME /tmp/react
-ADD ./build /tmp/react
-ADD ./package.json /tmp/react/package.json
-RUN cd /tmp/react
+VOLUME /tmp
+ADD ./build /tmp
+ADD ./package.json /tmp/package.json
+RUN cd /tmp
 RUN ls
 EXPOSE 3000
 CMD [""]
