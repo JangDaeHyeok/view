@@ -1,2 +1,2 @@
-FROM sktellecom/ms-test:view-api
-EXPOSE 3000
+FROM sktellecom/ms-test:nginx
+ADD ./build /usr/share/nginx/html
