@@ -22,7 +22,6 @@ podTemplate(label: 'builder',
             container('node') {
                 // build node
                 sh 'npm config set proxy http://10.107.154.33:8092'
-                sh 'npm config set strict-ssl false'
                 sh 'npm install'
                 sh 'npm run build'
             }
