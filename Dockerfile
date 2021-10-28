@@ -6,4 +6,3 @@ ADD ./package.json /tmp/react/package.json
 RUN cd /tmp/react
 RUN ls
 EXPOSE 3000
-CMD ["npm", "start"]
