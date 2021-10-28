@@ -1,5 +1,5 @@
 FROM sktellecom/centos7:node
-VOLUME /
+VOLUME /tmp
 ADD ./build .
 ADD ./package.json .
 EXPOSE 3000
