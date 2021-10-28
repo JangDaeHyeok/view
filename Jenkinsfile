@@ -13,7 +13,7 @@ podTemplate(label: 'builder',
             ],
             volumes: [
                 hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-                hostPathVolume(mountPath: '/tmp/default.conf', hostPath: '/nginx/default.conf')
+                hostPathVolume(hostPath: '/tmp/default.conf', mountPath: '/nginx/default.conf')
             ]) {
     node('builder') {
         stage('Checkout') {
