@@ -23,7 +23,6 @@ podTemplate(label: 'builder',
                 // build node
                 sh 'npm install'
                 sh 'npm run build'
-                sh 'npm config set proxy http://10.107.154.33:8092'
             }
         }
         stage('Docker build') {
