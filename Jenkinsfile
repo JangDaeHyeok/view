@@ -21,8 +21,8 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('node') {
                 // build node
-                // sh 'npm install'
-                // sh 'npm run build'
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         stage('Docker build') {
