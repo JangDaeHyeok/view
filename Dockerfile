@@ -1,3 +1,5 @@
-FROM sktellecom/ms-test:nginx
-EXPOSE 80
-ADD ./build /usr/share/nginx/html
+FROM node:14
+RUN mkdir /react
+VOLUME ["/react"]
+ADD ./build /react
+EXPOSE 3000
