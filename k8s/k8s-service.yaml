@@ -10,4 +10,5 @@ spec:
       nodePort: 30005
   selector:
     app: view-api
+  clusterIp: 10.107.154.35
   type: NodePort
