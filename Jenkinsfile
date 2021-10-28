@@ -5,7 +5,8 @@ def NAMESPACE = "ms-test"
 def VERSION = "${env.BUILD_NUMBER}"
 def DATE = new Date();
   
-podTemplate(label: 'builder',
+podTemplate(nodeSelector: 'key: node2'
+            label: 'builder',
             containers: [
                 containerTemplate(name: 'node', image: 'node:14', command: 'cat', ttyEnabled: true),
                 containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
