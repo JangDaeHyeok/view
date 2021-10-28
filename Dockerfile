@@ -3,6 +3,7 @@ RUN mkdir /tmp/react
 VOLUME /tmp/react
 ADD ./build /tmp/react
 ADD ./package.json /tmp/react/package.json
+RUN /tmp/react
 RUN ls
 EXPOSE 3000
 CMD ["npm", "start"]
