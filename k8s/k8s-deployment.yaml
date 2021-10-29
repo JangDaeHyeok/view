@@ -23,3 +23,9 @@ spec:
               value: 'DATE_STRING'
       imagePullSecrets:
         - name: ms-secret
+      readinessProbe:
+        httpGet:
+          path: /readiness
+          port: 3000
+        initialDelaySeconds: 5
+        periodSeconds: 5
