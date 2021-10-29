@@ -66,7 +66,6 @@ podTemplate(nodeSelector: 'key=node2', label: 'builder',
                         sh "sed -i.bak 's#DATE_STRING#${DATE}#' ./k8s/k8s-deployment.yaml"
 
                         /* yaml파일로 배포를 수행한다 */
-                        sh "kubectl delete -f ./k8s/k8s-deployment.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./k8s/k8s-deployment.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./k8s/k8s-service.yaml -n ${NAMESPACE}"
                 }
