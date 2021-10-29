@@ -37,8 +37,8 @@ function BoardList() {
                 boardType:'free',
                 size:size,
                 viewType:'list', // 목록: list, 상세: detailView
-                searchType:searchVal.searchType,
-                searchKeyword:searchVal.searchKeyword
+                searchType:searchVal.searchType ?? 'all',
+                searchKeyword:searchVal.searchKeyword ?? ''
             },
         }).then(Response => {
             setSource({
@@ -71,6 +71,7 @@ function BoardList() {
 
     // 검색
     const search = () => {
+        setPaging(1);
         getList();
     }
 
@@ -87,7 +88,7 @@ function BoardList() {
                 <div className='box'>
                     <div className='item sel'>
                         <select className='form-basic' title='검색 조건 선택' onChange={e => setSearchVal(Object.assign(searchVal, {searchType:e.target.value}))}>
-                            <option value="">전체</option>
+                            <option value="all">전체</option>
                             <option value="title">제목</option>
                             <option value="contents">내용</option>
                         </select>

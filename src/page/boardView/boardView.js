@@ -100,7 +100,7 @@ function BoardView(props) {
                     <div className='tit'>내용</div>
                     <div className='desc'>{view.contents}</div>
                 </div>
-                <div className={view.files ? 'comp-basic-row' : 'comp-basic-row hide'}>
+                <div className={view.files !== undefined && view.files.length ? 'comp-basic-row' : 'comp-basic-row hide'}>
                     <div className='tit'>이미지</div>
                     <div className='desc'>
                         <div className='img-box'>

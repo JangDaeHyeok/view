@@ -17,6 +17,10 @@ function BoardWrite(props) {
     const {setSession} = useContext(UserSession); // 세션 컨텍스트 사용
     const sessionUserId = window.localStorage.getItem('userId'); // 현재 userId 정보 저장
     const sessionUserNm = window.localStorage.getItem('userNm'); // 현재 userNm 정보 저장
+    const [fileList, setFileList] = useState(''); // case: 수정 -> 미리보기 파일 저장
+    let fileDelItem = []; // 삭제한 파일 저장
+
+
 
     // case: 수정 -> 해당 게시물 내용 가져오기
     useEffect( () => {
@@ -37,6 +41,7 @@ function BoardWrite(props) {
                     title:Response.data.one.title,
                     contents:Response.data.one.contents
                 });
+                setFileList(Response.data.fileList);
             }).catch((error) => {
                 console.log(error);
             })
@@ -61,7 +66,8 @@ function BoardWrite(props) {
                     title: view.title,
                     userId:sessionUserId,
                     contents:view.contents,
-                    boardType: 'free'
+                    boardType: 'free',
+                    fileDelList:fileDelItem
                 },
             }).then(response => {
                 if(response.data) goBoardList();
@@ -77,8 +83,8 @@ function BoardWrite(props) {
             for(let i = 0; i < view.files.length; i++) formData.append('files', view.files[i]);
 
             axios({
-                method: writeType === 'write' ? 'post' : 'patch',
-                url: '/board/file/upload/',
+                method: 'post',
+                url: writeType === 'write' ? '/board/file/upload/write' : '/board/file/upload/'+modBoardIdx,
                 headers: {'Content-Type': 'multipart/form-data'},
                 data: formData,
             }).then(response => {
@@ -89,12 +95,18 @@ function BoardWrite(props) {
                 console.log(error)
             });
         } else {
-            saveData();
+            saveData(modBoardIdx);
         }
     }
 
     // 목록으로 이동
     const goBoardList = () => history.push('/board/list');
+
+    // 이미지 삭제
+    const fileDel = (target, idx) => {
+        target.parentNode.remove();
+        fileDelItem.push(idx);
+    }
 
     return (
         <>
@@ -127,8 +139,22 @@ function BoardWrite(props) {
                 <div className='comp-basic-row'>
                     <div className='tit'>이미지</div>
                     <div className='desc'>
-                        <input type='file' className='form-basic' title='이미지 등록' defaultValue={view.files} onChange={e => setView(Object.assign(view, {files:e.target.files}))} multiple accept="image/png, image/gif, image/jpeg, image/jpg"/>
+                        <input type='file' className='form-basic' title='이미지 등록' defaultValue={writeType === 'write' ? view.files : ''} onChange={e => setView(Object.assign(view, {files:e.target.files}))} multiple accept="image/png, image/gif, image/jpeg, image/jpg"/>
                     </div>
+                </div>
+
+
+                <div className='img-preview'>
+                    {
+                        fileList && fileList.map((item, index)=>{
+                            return (
+                                <div className='img' key={index}>
+                                    <img src={'/board/file/download/'+item.fileNm} alt=''/>
+                                    <button type='button' className='close' onClick={e => {fileDel(e.target, item.boardFileIdx)}}>삭제</button>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </section>
 

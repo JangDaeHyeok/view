@@ -90,7 +90,7 @@ input[type="text"], input[type="search"], input[type="tel"], input[type="number"
 textarea, button,  input {
     -webkit-appearance: none;
 }
-input[type="text"], input[type="search"], input[type="number"], input[type="email"], input[type="password"] {
+input[type="text"], input[type="search"], input[type="number"], input[type="email"], input[type="password"], input[type="file"] {
     @include input(40px, 30px, 0 10px);
 }
 select {

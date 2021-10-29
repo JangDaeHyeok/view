@@ -37,6 +37,7 @@ function UserInfo() {
             url: '/user/logout',
             headers: {'Content-Type': 'application/json'},
         }).then(Response => {
+            alert('로그아웃 되었습니다.');
             history.push('/login');
         }).catch((error) => {
             console.log(error);

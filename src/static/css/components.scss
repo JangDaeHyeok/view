@@ -298,3 +298,35 @@
         color:#000;
     }
 }
+
+
+/* img preview */
+.img-preview {
+    margin:-30px -10px 0;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    .img {
+        float: left;
+        width:25%;
+        padding:10px;
+        position: relative;
+        text-align: center;
+        img {
+            height: 100px;
+        }
+    }
+    .close {
+        position: absolute;
+        right:10px;
+        top:10px;
+        z-index: 10;
+        height:30px;
+        line-height:30px;
+        background:rgba(0,0,0,0.6);
+        color:#fff;
+        padding:0 20px;
+        font-size:13px;
+    }
+}
