@@ -18,14 +18,14 @@ spec:
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
           env:
             - name: DATE
               value: 'DATE_STRING'
       imagePullSecrets:
         - name: ms-secret
-      readinessProbe:
-        httpGet:
-          path: /readiness
-          port: 3000
-        initialDelaySeconds: 5
-        periodSeconds: 5
