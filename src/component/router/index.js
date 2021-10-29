@@ -6,6 +6,7 @@ import Join from '../../page/join/join';
 import BoardList from '../../page/boardList/boardList';
 import BoardWrite from '../../page/boardWrite/boardWrite';
 import BoardView from '../../page/boardView/boardView';
+import Readiness from '../readiness'
 import UserContext from "../userSession";
 
 /* router: url과 component 세팅 */
@@ -27,6 +28,7 @@ function Routers() {
                         <Route path='/board/list' exact component={BoardList} />
                         <Route path='/board/write' exact  component={BoardWrite} />
                         <Route path='/board/view' exact  component={BoardView} />
+                        <Route path='/readiness' exact  component={Readiness} />
                     </Switch>
                 </BrowserRouter>
             </UserContext.Provider>
